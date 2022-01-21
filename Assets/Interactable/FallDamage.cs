@@ -23,7 +23,7 @@ public class FallDamage : MonoBehaviour
     {
         // rb = GetComponent<Rigidbody>();
         // anim = GetComponent<Animator>();
-        LastGroundY = this.transform.position.y;
+        LastGroundY = -1000;
         Controller = GetComponent<CharacterController>();
         isAirborne = !Controller.isGrounded;
     }
@@ -33,11 +33,11 @@ public class FallDamage : MonoBehaviour
     {
         if(isAirborne && Controller.isGrounded)
         {
-            print(this.transform.position.y - LastGroundY);
-            if(this.transform.position.y - LastGroundY > MinimumFallHeight)
+            print(LastGroundY - this.transform.position.y);
+            if(LastGroundY - this.transform.position.y > MinimumFallHeight)
             {
                 print("Damaged");
-                TakeFallDamage(this.transform.position.y - LastGroundY);
+                TakeFallDamage(LastGroundY - this.transform.position.y);
             }
         }
         // x = Input.GetAxisRaw("Horizontal");
@@ -60,6 +60,6 @@ public class FallDamage : MonoBehaviour
 
     public void TakeFallDamage(float FallDamage)
     {
-        OnFallDamage?.Invoke(10);
+        OnFallDamage?.Invoke(FallDamage);
     }
 }
