@@ -27,7 +27,7 @@ public class OxygenHandler : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         // When Player is entering underwater 
-        if(other.GetComponent<RisingWater>() != null)
+        if(other.GetComponentInParent<RisingWater>() != null)
         {
             LosingOxygen = StartCoroutine(LosingOxygenCoroutine());
         }   
@@ -38,7 +38,7 @@ public class OxygenHandler : MonoBehaviour
     private void OnTriggerExit(Collider other) 
     {
         // When Player is exiting underwater
-        if(LosingOxygen != null && other.GetComponent<RisingWater>() != null)
+        if(LosingOxygen != null && other.GetComponentInParent<RisingWater>() != null)
         {
             StopCoroutine(LosingOxygen);
             LosingOxygen = null;
