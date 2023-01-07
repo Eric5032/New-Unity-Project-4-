@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.UI;
 
 public class OxygenHandler : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class OxygenHandler : MonoBehaviour
     public HealthEvent OnNoOxygen;
     private Coroutine LosingOxygen;
 
-    public TextMeshProUGUI oxygenText;
+    public Image OxygenBar;
 
     private void Start() {
         oxygenAmount = oxygenMaxAmount;
@@ -30,6 +31,7 @@ public class OxygenHandler : MonoBehaviour
         if(other.GetComponentInParent<RisingWater>() != null)
         {
             LosingOxygen = StartCoroutine(LosingOxygenCoroutine());
+            Debug.Log("Start Losing Oxygen");
         }   
     }
 
@@ -68,6 +70,7 @@ IEnumerator LosingOxygenCoroutine()
 
     public void UpdateOxygenText()
     {
-        oxygenText.text = $"Oxygen: {oxygenAmount}";
+        OxygenBar.fillAmount = oxygenAmount / oxygenMaxAmount;
+        /*oxygenText.text = $"Oxygen: {oxygenAmount}";*/
     }
 }
